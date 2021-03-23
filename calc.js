@@ -6,8 +6,12 @@ function btnPress(key, output1) {
   //NUMBER ENTERED
   if (String(key).match(/[0-9.]/g)) {
     //NO 1ST NUMBER, ENTERING NOW
-    if (!input[0]) {
+    if (input[0]==0) {
       if (key == ".") {
+        if (!String(input[0]).includes(".")){
+        input[0] = String(input[0]) + key;
+        }
+      } else if (String(input[0]).includes(".")){
         input[0] = String(input[0]) + key;
       } else {
         input[0] = key;
@@ -180,7 +184,6 @@ function btnPress(key, output1) {
     }
   }
 }
-
 
 //-----------------EVENT LISTENERS----------------------------------------------
 
