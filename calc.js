@@ -1,20 +1,22 @@
-var input = [0, false, false, false];
+var input = [0, false, false, false, false];
 var ops = ["+", "-", "=", "/", "*", "%", "^"];
 var ops1 = {"+": add,"-":sub,"*":mult,"/":div,"^":power,"%":mod}
 
 function btnPress(key, output1) {
   //NUMBER ENTERED
+  console.log(input);
   if (String(key).match(/[0-9.]/g)) {
     //NO 1ST NUMBER, ENTERING NOW
-    if (input[0]==0) {
+    if (!input[4]) {
+      input[4] = true;
       if (key == ".") {
         if (!String(input[0]).includes(".")){
-        input[0] = String(input[0]) + key;
+        input[0] = String(key);
         }
       } else if (String(input[0]).includes(".")){
         input[0] = String(input[0]) + key;
       } else {
-        input[0] = key;
+        input[0] = String(key);
       }
       document.querySelector(".output").innerHTML = input[0];
     }
@@ -28,6 +30,7 @@ function btnPress(key, output1) {
     //NO SECOND NUMBER, ENTERING NOW
     else if (!input[1]) {
       if (key == ".") {
+        //console.log("here");
         input[1] = String(0) + key;
       } else {
         input[1] = key;
@@ -44,6 +47,7 @@ function btnPress(key, output1) {
     }
     //EQUAL OPERATION IN USE, MUST OVERWRITE 2ND NUMBER
     else {
+      console.log("equal operation in use?");
       if (key == ".") {
         input[1] = "0.";
       } else {
@@ -55,7 +59,7 @@ function btnPress(key, output1) {
   }
   //CLEAR ALL
   else if (["AC", "C"].includes(String(key))) {
-    input = [0, false, false, false];
+    input = [0, false, false, false, false];
     document.querySelector(".output").innerHTML = input[0];
   }
   //OPERATION ENTERED
@@ -64,46 +68,88 @@ function btnPress(key, output1) {
     if (input[2] && (input[1] || input[1] === 0)) {
       switch (key) {
         case "*":
-          document.querySelector(".output").innerHTML = ops1[input[2]](input[0],input[1]);
-          input[0] = ops1[input[2]](input[0],input[1]);
-          input[1] = false;
-          input[2] = "*";
-          input[3] = false;
+          if (input[3]){
+            input[3] = false;
+            input[1] = false;
+            input[2] = "*";
+          }
+          else{
+            document.querySelector(".output").innerHTML = ops1[input[2]](input[0],input[1]);
+            input[0] = ops1[input[2]](input[0],input[1]);
+            input[3] = false;
+            input[1] = false;
+            input[2] = "*";
+          }
           break;
         case "/":
-          document.querySelector(".output").innerHTML = ops1[input[2]](input[0],input[1]);
-          input[0] = ops1[input[2]](input[0],input[1]);
-          input[1] = false;
-          input[2] = "/";
-          input[3] = false;
+          if (input[3]){
+            input[3] = false;
+            input[1] = false;
+            input[2] = "/";
+          }
+          else{
+            document.querySelector(".output").innerHTML = ops1[input[2]](input[0],input[1]);
+            input[0] = ops1[input[2]](input[0],input[1]);
+            input[3] = false;
+            input[1] = false;
+            input[2] = "/";
+          }
           break;
         case "+":
-          document.querySelector(".output").innerHTML = ops1[input[2]](input[0],input[1]);
-          input[0] = ops1[input[2]](input[0],input[1]);
-          input[1] = false;
-          input[2] = "+";
-          input[3] = false;
+          if (input[3]){
+            input[3] = false;
+            input[1] = false;
+            input[2] = "+";
+          }
+          else{
+            document.querySelector(".output").innerHTML = ops1[input[2]](input[0],input[1]);
+            input[0] = ops1[input[2]](input[0],input[1]);
+            input[3] = false;
+            input[1] = false;
+            input[2] = "+";
+          }
           break;
         case "-":
-          document.querySelector(".output").innerHTML = ops1[input[2]](input[0],input[1]);
-          input[0] = ops1[input[2]](input[0],input[1]);
-          input[1] = false;
-          input[2] = "-";
-          input[3] = false;
+          if (input[3]){
+            input[3] = false;
+            input[1] = false;
+            input[2] = "-";
+          }
+          else{
+            document.querySelector(".output").innerHTML = ops1[input[2]](input[0],input[1]);
+            input[0] = ops1[input[2]](input[0],input[1]);
+            input[3] = false;
+            input[1] = false;
+            input[2] = "-";
+          }
           break;
         case "%":
-          document.querySelector(".output").innerHTML = ops1[input[2]](input[0],input[1]);
-          input[0] = ops1[input[2]](input[0],input[1]);
-          input[1] = false;
-          input[2] = "%";
-          input[3] = false;
+          if (input[3]){
+            input[3] = false;
+            input[1] = false;
+            input[2] = "%";
+          }
+          else{
+            document.querySelector(".output").innerHTML = ops1[input[2]](input[0],input[1]);
+            input[0] = ops1[input[2]](input[0],input[1]);
+            input[3] = false;
+            input[1] = false;
+            input[2] = "%";
+          }
           break;
         case "^":
-          document.querySelector(".output").innerHTML = ops1[input[2]](input[0],input[1]);
-          input[0] = ops1[input[2]](input[0],input[1]);
-          input[1] = false;
-          input[2] = "^";
-          input[3] = false;
+          if (input[3]){
+            input[3] = false;
+            input[1] = false;
+            input[2] = "^";
+          }
+          else{
+            document.querySelector(".output").innerHTML = ops1[input[2]](input[0],input[1]);
+            input[0] = ops1[input[2]](input[0],input[1]);
+            input[3] = false;
+            input[1] = false;
+            input[2] = "^";
+          }
           break;
         case "=":
           document.querySelector(".output").innerHTML = ops1[input[2]](input[0],input[1]);
