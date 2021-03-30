@@ -7,11 +7,11 @@ function btnPress(key, output1) {
   console.log(input);
   if (String(key).match(/[0-9.]/g)) {
     //NO 1ST NUMBER, ENTERING NOW
-    if (!input[4]) {
-      input[4] = true;
+    if (!input[4] || input[3]) {
+      input = [0, false, false, false, true];
       if (key == ".") {
         if (!String(input[0]).includes(".")){
-        input[0] = String(key);
+        input[0] = String(input[0]) + key;
         }
       } else if (String(input[0]).includes(".")){
         input[0] = String(input[0]) + key;
