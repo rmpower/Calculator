@@ -1,6 +1,6 @@
 var input = [0, false, false, false, false];
 var ops = ["+", "-", "=", "/", "*", "%", "^"];
-var opfunc = {"+": add,"-":sub,"*":mult,"/":div,"^":power,"%":mod}
+var opfunc = {"+": add,"-":sub,"*":mult,"/":div,"^":exp,"%":mod}
 
 function btnPress(key, output1) {
   //NUMBER ENTERED
