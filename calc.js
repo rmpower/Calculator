@@ -269,7 +269,7 @@ document.addEventListener("keypress", function(event) {
 
 function round(num) {
   if (String(num).length > 12) {
-    return Number(Number.parseFloat(num).toFixed(8));
+    return parseFloat((num).toFixed(8));
   } else {
     return num;
   }
@@ -283,32 +283,28 @@ function mult(num1, num2) {
   return round(result);
 }
 function div(num1, num2) {
-  return Number(num1) / Number(num2);
+  var result = Number(num1) / Number(num2);
+  return round(result);
 }
 function sub(num1, num2) {
   var result = Number(num1) - Number(num2);
   return round(result);
 }
-function power(num1,num2){
-  if (Number(num2)==0){
-    return 1
-  }
-  num1 = Number(num1)
-  val = num1
-  for (x = 1; x < Number(num2);x++){
-    num1 *= val
-  }
-  return num1;
-}
-function fact(num,num2) {
-  if (num <= 1) {
+function exp(num1,num2){
+  num1 = Number(num1);
+  num2 = Number(num2);
+  val = num1;
+
+  if (num2 == 0) {
     return 1;
   }
-  return num * fact(num - 1);
+  for (x = 1; x < num2; x++){
+    val *= num1;
+  }
+  return round(val);
 }
 function mod(num1, num2) {
-  return Number(num1) % Number(num2);
+  var result = Number(num1) % Number(num2);
+  return round(result);
 }
-function isLetter(str) {
-  return str.length == 1 && str.match(/[a-zA-Z]/i);
-}
+
