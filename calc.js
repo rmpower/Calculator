@@ -332,6 +332,10 @@ function logx(num1, num2) {
   return round(result);
 }
 function root(num1, num2) {
+  if (num2 % 2 == 1 && num1 < 0) {
+    var result = Math.pow(Math.abs(num1), 1/num2);
+    return round(result * -1);
+  }
   var result = Math.pow(num1, 1/num2);
   return round(result);
 }
