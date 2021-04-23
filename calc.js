@@ -1,10 +1,9 @@
 var input = [0, false, false, false, false];
-var ops = ["+", "-", "=", "/", "*", "%", "^"];
-var opfunc = {"+": add,"-":sub,"*":mult,"/":div,"^":exp,"%":log}
+var ops = ["+", "-", "=", "/", "*", "log", "^", "r"];
+var opfunc = {"+": add,"-":sub,"*":mult,"/":div,"^":exp,"log":logx, "r":root}
 
 function btnPress(key, output1) {
   //NUMBER ENTERED
-  console.log(input);
   if (String(key).match(/[0-9.]/g)) {
     //NO 1ST NUMBER, ENTERING NOW
     if (!input[4] || input[3]) {
@@ -13,10 +12,10 @@ function btnPress(key, output1) {
         if (!String(input[0]).includes(".")) {
           input[0] = String(input[0]) + key;
         }
-      } 
+      }
       else if (String(input[0]).includes(".")) {
         input[0] = String(input[0]) + key;
-      } 
+      }
       else {
         input[0] = String(key);
       }
@@ -27,12 +26,12 @@ function btnPress(key, output1) {
       if (String(input[0]) === "0") {
         if (key != ".") {
           input[0] = key;
-        } 
+        }
         else {
           input[0] = String(input[0]) + key;
         }
         document.querySelector(".output").innerHTML = input[0];
-      } 
+      }
       else if (!(key == "." && String(input[0]).includes("."))) {
         input[0] = String(input[0]) + String(key);
         document.querySelector(".output").innerHTML = input[0];
@@ -42,7 +41,7 @@ function btnPress(key, output1) {
     else if (!input[1]) {
       if (key == ".") {
         input[1] = String(0) + key;
-      } 
+      }
       else {
         input[1] = key;
       }
@@ -90,6 +89,20 @@ function btnPress(key, output1) {
             input[2] = "*";
           }
           break;
+        case "r":
+          if (input[3]){
+            input[3] = false;
+            input[1] = false;
+            input[2] = "r";
+          }
+          else{
+            document.querySelector(".output").innerHTML = opfunc[input[2]](input[0],input[1]);
+            input[0] = opfunc[input[2]](input[0],input[1]);
+            input[3] = false;
+            input[1] = false;
+            input[2] = "r";
+          }
+          break;
         case "/":
           if (input[3]){
             input[3] = false;
@@ -132,18 +145,18 @@ function btnPress(key, output1) {
             input[2] = "-";
           }
           break;
-        case "%":
+        case "log":
           if (input[3]){
             input[3] = false;
             input[1] = false;
-            input[2] = "%";
+            input[2] = "log";
           }
           else{
             document.querySelector(".output").innerHTML = opfunc[input[2]](input[0],input[1]);
             input[0] = opfunc[input[2]](input[0],input[1]);
             input[3] = false;
             input[1] = false;
-            input[2] = "%";
+            input[2] = "log";
           }
           break;
         case "^":
@@ -176,6 +189,10 @@ function btnPress(key, output1) {
           document.querySelector(".output").innerHTML = input[0];
           input[2] = "*";
           break;
+        case "r":
+          document.querySelector(".output").innerHTML = input[0];
+          input[2] = "r";
+          break;
         case "/":
           document.querySelector(".output").innerHTML = input[0];
           input[2] = "/";
@@ -188,9 +205,9 @@ function btnPress(key, output1) {
           document.querySelector(".output").innerHTML = input[0];
           input[2] = "-";
           break;
-        case "%":
+        case "log":
           document.querySelector(".output").innerHTML = input[0];
-          input[2] = "%";
+          input[2] = "log";
           break;
         case "^":
           document.querySelector(".output").innerHTML = input[0];
@@ -210,6 +227,10 @@ function btnPress(key, output1) {
           document.querySelector(".output").innerHTML = String(input[0]);
           input[2] = "*";
           break;
+        case "r":
+          document.querySelector(".output").innerHTML = String(input[0]);
+          input[2] = "r";
+          break;
         case "/":
           document.querySelector(".output").innerHTML = String(input[0]);
           input[2] = "/";
@@ -222,9 +243,9 @@ function btnPress(key, output1) {
           document.querySelector(".output").innerHTML = String(input[0]);
           input[2] = "-";
           break;
-        case "%":
+        case "log":
           document.querySelector(".output").innerHTML = String(input[0]);
-          input[2] = "%";
+          input[2] = "log";
           break;
         case "^":
           document.querySelector(".output").innerHTML = String(input[0]);
@@ -253,7 +274,7 @@ function clickedOn() {
   if (Number(output1)) {
     output1 = Number(output1);
   }
-  btnPress(this.innerHTML, output1);
+  btnPress(this.id, output1);
 }
 document.addEventListener("keypress", function(event) {
   var audio = new Audio("sound/click.mp3");
@@ -294,7 +315,6 @@ function exp(num1,num2){
   num1 = Number(num1);
   num2 = Number(num2);
   val = num1;
-
   if (num2 == 0) {
     return 1;
   }
@@ -307,7 +327,12 @@ function mod(num1, num2) {
   var result = Number(num1) % Number(num2);
   return round(result);
 }
-function log(num1, num2) {
+function logx(num1, num2) {
   var result = Math.log(num1) / Math.log(num2);
   return round(result);
 }
+function root(num1, num2) {
+  var result = Math.pow(num1, 1/num2);
+  return round(result);
+}
+
