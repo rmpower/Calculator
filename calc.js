@@ -1,6 +1,6 @@
 var input = [0, false, false, false, false];
 var ops = ["+", "-", "=", "/", "*", "%", "^"];
-var opfunc = {"+": add,"-":sub,"*":mult,"/":div,"^":exp,"%":mod}
+var opfunc = {"+": add,"-":sub,"*":mult,"/":div,"^":exp,"%":log}
 
 function btnPress(key, output1) {
   //NUMBER ENTERED
@@ -307,4 +307,7 @@ function mod(num1, num2) {
   var result = Number(num1) % Number(num2);
   return round(result);
 }
-
+function log(num1, num2) {
+  var result = Math.log(num1) / Math.log(num2);
+  return round(result);
+}
